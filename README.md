@@ -77,8 +77,8 @@ This pattern deploys an API that can be used for generation of a presigned URL t
 
       You get response in the form of a URL that can be used once to access the object : https://<APIendpoint>/access-object?nonce=<the-unique-object-nonce>
 
-3. Access the object once using the access-object URL - it is available only once while the nonce is active
-   Access it again - it is not available
+3. Access the object once using the access-object URL - it is available only once while the nonce is active.
+   Access it again - it is not available.
 
 ## Cleanup
 
