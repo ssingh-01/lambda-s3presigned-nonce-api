@@ -1,6 +1,6 @@
 # Create S3 Presigned URL with API Gateway and Lambda Authorizer to allow URL access only once.
 
-This pattern demonstrates how to create an S3 Presigned URL with API Gateway Lambda Authorizer to allow URL access only once for security reasons. Implemented in CDK.
+This pattern demonstrates how to create an S3 Presigned URL with API Gateway and Lambda Authorizer to allow URL access only once for security reasons. Implemented in CDK.
 
 Learn more about this pattern at Serverless Land Patterns: https://serverlessland.com/patterns/lambda-s3presigned-nonce-api
 
