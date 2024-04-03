@@ -58,8 +58,8 @@ Important: this application uses various AWS services and there are costs associ
    ```bash
    cdk deploy
    ```
-   Enter y when prompted:
-   Do you wish to deploy these changes (y/n)? y
+      Enter y when prompted:
+      Do you wish to deploy these changes (y/n)? y
    
 ## How it works
 
@@ -72,14 +72,13 @@ This pattern deploys an API that can be used for generation of a presigned URL t
 
 2. Create a POST request to the following url as an IAM authenticated user, you get the access-object endpoint along with the nonce:
 
-API URL : https://<APIendpoint>/generate-url 
-Payload : {"bucket_name":"<bucketname>", "object_name":"S3.png"}
+      API URL : https://<APIendpoint>/generate-url 
+      Payload : {"bucket_name":"<bucketname>", "object_name":"S3.png"}
 
-Response : https://<APIendpoint>/access-object?nonce=<the-unique-object-nonce>
+      You get response in the form of a URL that can be used once to access the object : https://<APIendpoint>/access-object?nonce=<the-unique-object-nonce>
 
-3. 
-Access the object once using the access-object URL - it is available because the nonce is active
-Access it again - it is not available, nonce limits access
+3. Access the object once using the access-object URL - it is available only once while the nonce is active
+   Access it again - it is not available
 
 ## Cleanup
 
