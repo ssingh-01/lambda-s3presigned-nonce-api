@@ -58,7 +58,7 @@ Important: this application uses various AWS services and there are costs associ
    ```bash
    cdk deploy
    ```
-   Enter y when prmompted:
+   Enter y when prompted:
    Do you wish to deploy these changes (y/n)? y
    
 ## How it works
@@ -68,12 +68,18 @@ This pattern deploys an API that can be used for generation of a presigned URL t
 
 ## Testing
 
-1. In the stack output, you can see `APIendpoint` and when you access the following url, you get the access-object endpoint along with the nonce :
-generate-url
+1. In the stack output, you get an `PreSignedURLStack.ApiGatewayEndpoint` and an S3 bucket name `PreSignedURLStack.BucketUrl`. 
 
-Access the object once - it is available
+2. Create a POST request to the following url as an IAM authenticated user, you get the access-object endpoint along with the nonce:
 
-Access it again - it is not available
+API URL : https://<APIendpoint>/generate-url 
+Payload : {"bucket_name":"<bucketname>", "object_name":"S3.png"}
+
+Response : https://<APIendpoint>/access-object?nonce=<the-unique-object-nonce>
+
+3. 
+Access the object once using the access-object URL - it is available because the nonce is active
+Access it again - it is not available, nonce limits access
 
 ## Cleanup
 
@@ -82,7 +88,6 @@ Run the given command to delete the resources that were created. It might take s
 ```bash
 cdk destroy
 ```
-
 ---
 
 Copyright 2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.

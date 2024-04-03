@@ -4,10 +4,12 @@ from aws_cdk import (
     aws_iam as iam,
     aws_lambda as lambda_,
     aws_s3 as s3,
+    aws_s3_deployment  as s3deploy,
     Duration,
     Aws,
     Stack,
     RemovalPolicy,
+    CfnOutput
 )
 from constructs import Construct
 
@@ -15,6 +17,23 @@ from constructs import Construct
 class PreSignedURLStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
+
+
+    # Create a new S3 bucket for testing
+        bucket = s3.Bucket(
+            self,
+            "MyBucket",
+
+            encryption=s3.BucketEncryption.S3_MANAGED,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            removal_policy=RemovalPolicy.DESTROY,  # This will delete the bucket when the stack is deleted (for demo purposes)
+        )
+
+        CfnOutput(self, 'BucketUrl', value=bucket.bucket_name)
+                  
+        s3deploy.BucketDeployment(self, 'UploadFile', 
+                                  sources=[s3deploy.Source.asset('test')],
+                                  destination_bucket=bucket)
 
         # DynamoDB(DDB) table for storing nonce
         nonce_table = dynamodb.Table(
@@ -27,7 +46,7 @@ class PreSignedURLStack(Stack):
         )
 
         # Content Bucket
-        bucket = s3.Bucket.from_bucket_name(self, "MyBucket", "test-s3pre")
+        # bucket = s3.Bucket.from_bucket_name(self, "MyBucket", "test-s3pre")
 
         # Lambda function for generating S3 Presigned URL and adding nonce to DynamoDB
         generate_url_lambda = self.create_generate_url_lambda(nonce_table, bucket)
