@@ -24,8 +24,7 @@ def getUrl(nonce):
     if "Item" in response:
 
         url = response["Item"]["url"]
-        count = response["Item"]["count"]
-        if count == "0":
+        if url:
             nonce_table.delete_item(Key={"nonce_id": nonce})
         return url
     else:
@@ -38,5 +37,6 @@ def lambda_handler(event, context):
     logger.info("Received event access object : " + json.dumps(event))
     nonce = event["queryStringParameters"]["nonce"]
     url = getUrl(nonce)
+    print(url)
     return {"statusCode": "302", "headers": {"Location": url}}
     # Return the content in the Lambda response
