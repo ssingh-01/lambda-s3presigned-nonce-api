@@ -68,7 +68,7 @@ This pattern deploys an API that can be used for generation of a presigned URL t
 
 ## Testing
 
-1. In the stack output, you get an `PreSignedURLStack.ApiGatewayEndpoint` and an S3 bucket name `PreSignedURLStack.BucketUrl`. 
+1. In the stack output, you get an `PreSignedURLStack.ApiGatewayEndpoint` and an S3 bucket name `PreSignedURLStack.Bucket`. 
 
 2. Create a POST request to the following url as an IAM authenticated user, you get the access-object endpoint along with the nonce:
 
